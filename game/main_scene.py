@@ -36,8 +36,8 @@ def enter():
     world.append(score_sprite, world.layer.ui)
 
     # 적 생성기와 충돌 검사기를 추가합니다.
-    world.append(EnemyGen(), world.layer.controller)
-    world.append(CollisionChecker(), world.layer.controller)
+    # world.append(EnemyGen(), world.layer.controller)
+    # world.append(CollisionChecker(), world.layer.controller)
 
     # 점수를 초기화합니다.
     global score
@@ -74,32 +74,33 @@ class CollisionChecker:
         pass
 
     def update(self):
-        # 적 객체를 가져옵니다.
-        enemies = world.objects_at(world.layer.enemy)
-        for e in enemies:  # 역순으로 순회합니다.
-            collided = False
-            # 총알 객체를 가져옵니다.
-            bullets = world.objects_at(world.layer.bullet)
-            for b in bullets:  # 역순으로 순회합니다.
-                # 총알과 적이 충돌했는지 확인합니다.
-                if gfw.collides_box(b, e):
-                    collided = True
-                    world.remove(b)
-                    # 적의 생명력을 감소시킵니다.
-                    dead = e.decrease_life(b.power)
-                    if dead:
-                        global score
-                        score += e.score
-                        score_sprite.score = score
-                        # print(f'+{e.score} ={score}')
-                        world.remove(e)
-                    break
-            if collided: break
-            # 전투기와 적이 충돌했는지 확인합니다.
-            if gfw.collides_box(fighter, e):
-                world.remove(e)
-                # 전투기의 HP를 감소시킵니다.
-                break
+        # # 적 객체를 가져옵니다.
+        # enemies = world.objects_at(world.layer.enemy)
+        # for e in enemies:  # 역순으로 순회합니다.
+        #     collided = False
+        #     # 총알 객체를 가져옵니다.
+        #     bullets = world.objects_at(world.layer.bullet)
+        #     for b in bullets:  # 역순으로 순회합니다.
+        #         # 총알과 적이 충돌했는지 확인합니다.
+        #         if gfw.collides_box(b, e):
+        #             collided = True
+        #             world.remove(b)
+        #             # 적의 생명력을 감소시킵니다.
+        #             dead = e.decrease_life(b.power)
+        #             if dead:
+        #                 global score
+        #                 score += e.score
+        #                 score_sprite.score = score
+        #                 # print(f'+{e.score} ={score}')
+        #                 world.remove(e)
+        #             break
+        #     if collided: break
+        #     # 전투기와 적이 충돌했는지 확인합니다.
+        #     if gfw.collides_box(fighter, e):
+        #         world.remove(e)
+        #         # 전투기의 HP를 감소시킵니다.
+        #         break
+        pass
 
 
 class MainScenUI:

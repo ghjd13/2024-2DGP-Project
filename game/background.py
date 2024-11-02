@@ -13,6 +13,8 @@ class Background(gfw.Sprite):
     SPEED_KEY_MAP = {
         (SDL_KEYDOWN, SDLK_a): 1,  # 속력
         (SDL_KEYUP, SDLK_a): 0,  # 속력
+        (SDL_KEYDOWN, SDLK_s): -1,  # 속력
+        (SDL_KEYUP, SDLK_s): 0,  # 속력
     }
     MAX_ROLL = 0.4  # 최대 롤 값
 
@@ -43,11 +45,13 @@ class Background(gfw.Sprite):
 
     def update(self):
         if self.x <= self.min_x or self.x >= self.max_x:
-            self.dspeed = -1
+            self.dspeed = -2
         elif self.speed < 0:
             self.speed = 0
             self.dspeed = 0
         elif self.dspeed == -1:
+            self.dspeed = -1
+        elif self.dspeed == -2:
             self.dspeed = 0
         self.speed += self.dspeed * gfw.frame_time *10
         self.x += self.dx * self.speed * gfw.frame_time

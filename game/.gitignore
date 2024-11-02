@@ -7,4 +7,4 @@ workspace.xml
 새 폴더.iml
 /inspectionProfiles/profiles_settings.xml
 /inspectionProfiles
-../__pycache__/
+__pycache__/
