@@ -26,15 +26,15 @@
 # scene 의 종류 및 구성, 전환 규칙
 ## 기본 Scene(거의 반드시 구현해야 하는 부분)
 ### 로딩 화면
-![loading scene](https://media.discordapp.net/attachments/1289396317956866108/1300373598539616276/121_20241028172003.png?ex=67209ac9&is=671f4949&hm=207b5c59405e0ecdc38e64012f5d03f29ac210d1336de06ede59dc4cb67da4fa&)
+![loading scene](https://media.discordapp.net/attachments/1289396317956866108/1300373598539616276/121_20241028172003.png?ex=672dc9c9&is=672c7849&hm=e6233318b3c1e337483dac80eb0ee2bed6889896ad9300c381fc55032e64150e&=&format=webp&quality=lossless&width=711&height=502)
 ### 타이틀 화면
-![gameplay scene](https://media.discordapp.net/attachments/1289396317956866108/1300380214236282890/121_20241028174631.png?ex=6720a0f2&is=671f4f72&hm=e341f51300f91faca92a6bc20a8efc11d966be5ae8ec9e1d0eba73108d741f64&)
+![gameplay scene](https://media.discordapp.net/attachments/1289396317956866108/1300380214236282890/121_20241028174631.png?ex=672dcff2&is=672c7e72&hm=57a6a3642172f446c1c307b619672d4fb95e26c65669bdcdaad51ce7605be969&=&format=webp&quality=lossless&width=711&height=502)
 ### 게임 화면
-![gameplay scene](https://media.discordapp.net/attachments/1289396317956866108/1295291831185047552/121_20241014164707.png?ex=67209305&is=671f4185&hm=95574bfbc1b0043836a21b1d4dd4446162d4ed22ad5491924dbd9e5a0f42f18c&)
+![gameplay scene](https://media.discordapp.net/attachments/1289396317956866108/1295291831185047552/121_20241014164707.png?ex=672dc205&is=672c7085&hm=88fd328b115fb78c79c1cca24b717bfb5082bbf96d3d1fbe06bdef81df0aaa9d&=&format=webp&quality=lossless&width=711&height=502)
             
 ## 서브 scene(반드시 구현하는 것이 아닌 부가적인 부분)
 ### 캐릭터 선택창
-![gameplay scene](https://media.discordapp.net/attachments/1289396317956866108/1300304676901883955/121_20241028124623.jpg?ex=67205a99&is=671f0919&hm=165ca7917112a0af4c053f9d3f318f983aa4f542199c5ca2498385702249c47e&)
+![gameplay scene](https://media.discordapp.net/attachments/1289396317956866108/1300304676901883955/121_20241028124623.jpg?ex=672d8999&is=672c3819&hm=0cc37511657677cb91c0a84c9bded90ea602eec82415490b541fa670efa5c5d1&=&format=webp&width=711&height=502)
 
     ○각 Scene 에 등장하는 GameObject 의 종류 및 구성, 상호작용
         -모든 class 에 대한 언급
@@ -66,3 +66,33 @@ https://youtu.be/FwmZ5BERFtg?si=Ae5WCi3fTRH9whiM
     ○1차 발표 전까지의 활동 정리
         10.04일 레이싱 게임으로 개발 방향
 	    10.26 - 10.27일 추가적으로 개발할 신, 객체 구상
+    ㅇ2차 발표전까지 활동 정리
+        10.29 자동차 좌우이동 구현
+        10.31 가속, 감속, 좌우 이동 구현, 도로 가장자리로 가면 감속 기믹 추가
+        11.07 read.md 파일 업데이트
+        
+
+# 개발 목표
+## 로딩신
+### 이미지
+### 코드
+
+## 타이틀신
+### 이미지
+### 코드
+
+## 캐릭선택신
+### 이미지
+### 코드
+
+## 게임화면신
+### 이미지
+- [ ] 도로
+- [ ] 적
+- [X] 주인공
+### 코드
+- [X] 감속, 가속
+- [ ] 도로 커브
+- [ ] 점수
+- [ ] 연료
+- [ ] 적 움직임
