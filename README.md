@@ -68,8 +68,15 @@ https://youtu.be/FwmZ5BERFtg?si=Ae5WCi3fTRH9whiM
 	    10.26 - 10.27일 추가적으로 개발할 신, 객체 구상
     ㅇ2차 발표전까지 활동 정리
         10.29 자동차 좌우이동 구현
-        10.31 가속, 감속, 좌우 이동 구현, 도로 가장자리로 가면 감속 기믹 추가
-        11.07 read.md 파일 업데이트
+	https://youtu.be/YZiQRvdvx-I?si=s6JOe6a6U0vrCxUx
+
+	10.31 가속, 감속, 좌우 이동 구현, 도로 가장자리로 가면 감속 기믹 추가
+	https://youtu.be/3nYC5xvbv70?si=3I10tRmKIfCz63eh
+	
+	11.02 브레이크 추가, 적 생성기 비활성화
+	https://youtu.be/IFuHxSZZlVY?si=7pBWNKRKxSGN2y2m
+	
+	11.07 read.md 파일 업데이트(구현 예정 사항 목록 추가)
         
 
 # 개발 목표
