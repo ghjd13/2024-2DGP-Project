@@ -48,7 +48,6 @@ class Fighter(gfw.Sprite):
         self.min_x = half_width
         self.max_x = get_canvas_width() - half_width
         self.laser_time = 0
-        self.spark_image = gfw.image.load('res/laser_0.png')
         self.roll_time = 0
         self.src_rect = Fighter.IMAGE_RECTS[4]  # 0~8의 9개 중 4번이 가운데
         self.src_mag_rect = Fighter.IMAGE_MAGNIFICATION_RECTS[4]

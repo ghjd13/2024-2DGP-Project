@@ -36,8 +36,8 @@ def enter():
     world.append(score_sprite, world.layer.ui)
 
     # 적 생성기와 충돌 검사기를 추가합니다.
-    # world.append(EnemyGen(), world.layer.controller)
-    # world.append(CollisionChecker(), world.layer.controller)
+    world.append(EnemyGen(), world.layer.controller)
+    world.append(CollisionChecker(), world.layer.controller)
 
     # 점수를 초기화합니다.
     global score
@@ -48,6 +48,8 @@ def exit():
     # 월드를 정리합니다.
     world.clear()
     print('[main.exit()]')
+
+
 
 
 def pause():
