@@ -1,3 +1,5 @@
+# background.py
+
 from pico2d import *
 import gfw
 
@@ -35,6 +37,9 @@ class Background(gfw.Sprite):
         self.image_change_speed = 1  # 이미지 변경 속도
         self.frame_count = 0  # 프레임 카운트 초기화
 
+    def get_center_x(self):
+        return self.x
+
     def handle_event(self, e):
         pair = (e.type, e.key)
         if pair in Background.KEY_MAP:
@@ -69,6 +74,7 @@ class Background(gfw.Sprite):
         self.frame_count += 1
         if self.image_change_speed > 0 and self.frame_count % self.image_change_speed == 0:
             self.current_image_index = (self.current_image_index + 1) % len(self.images)  # 이미지 인덱스 업데이트
+
 
     def draw(self):
         current_image = self.images[self.current_image_index]

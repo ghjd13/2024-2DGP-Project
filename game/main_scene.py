@@ -1,4 +1,6 @@
-from pico2d import * 
+# main_scene.py
+
+from pico2d import *
 from gfw import *
 
 from background import Background
@@ -17,39 +19,32 @@ shows_object_count = True
 
 
 def enter():
+    global background, fighter, score_sprite
+
     # 배경 이미지를 추가합니다.
-    # bg = InfiniteScrollBackground('res/road1.png', margin=100)
-    # world.append(bg, world.layer.bg)
-    # world.bg = bg
-    global background
     background = Background()
     world.append(background, world.layer.background)
 
     # 전투기 객체를 생성하고 추가합니다.
-    global fighter
     fighter = Fighter()
     world.append(fighter, world.layer.fighter)
 
     # UI 레이어에 점수 스프라이트를 추가합니다.
-    global score_sprite
     score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, canvas_height - 50)
     world.append(score_sprite, world.layer.ui)
 
     # 적 생성기와 충돌 검사기를 추가합니다.
-    world.append(EnemyGen(), world.layer.controller)
+    world.append(EnemyGen(background), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
 
     # 점수를 초기화합니다.
     global score
     score = 0
 
-
 def exit():
     # 월드를 정리합니다.
     world.clear()
     print('[main.exit()]')
-
-
 
 
 def pause():
@@ -76,32 +71,15 @@ class CollisionChecker:
         pass
 
     def update(self):
-        # # 적 객체를 가져옵니다.
-        # enemies = world.objects_at(world.layer.enemy)
-        # for e in enemies:  # 역순으로 순회합니다.
-        #     collided = False
-        #     # 총알 객체를 가져옵니다.
-        #     bullets = world.objects_at(world.layer.bullet)
-        #     for b in bullets:  # 역순으로 순회합니다.
-        #         # 총알과 적이 충돌했는지 확인합니다.
-        #         if gfw.collides_box(b, e):
-        #             collided = True
-        #             world.remove(b)
-        #             # 적의 생명력을 감소시킵니다.
-        #             dead = e.decrease_life(b.power)
-        #             if dead:
-        #                 global score
-        #                 score += e.score
-        #                 score_sprite.score = score
-        #                 # print(f'+{e.score} ={score}')
-        #                 world.remove(e)
-        #             break
-        #     if collided: break
-        #     # 전투기와 적이 충돌했는지 확인합니다.
-        #     if gfw.collides_box(fighter, e):
-        #         world.remove(e)
-        #         # 전투기의 HP를 감소시킵니다.
-        #         break
+        # 적 객체를 가져옵니다.
+        enemies = world.objects_at(world.layer.enemy)
+        for e in enemies:
+            collided = False
+            if collided: break
+            # 전투기와 적이 충돌했는지 확인합니다.
+            if gfw.collides_box(fighter, e):
+                world.remove(e)
+                break
         pass
 
 

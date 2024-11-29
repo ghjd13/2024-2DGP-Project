@@ -8,3 +8,4 @@ workspace.xml
 /inspectionProfiles/profiles_settings.xml
 /inspectionProfiles
 __pycache__/
+.idea

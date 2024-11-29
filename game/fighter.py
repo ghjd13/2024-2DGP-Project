@@ -99,17 +99,17 @@ class Fighter(gfw.Sprite):
         return self.x - 42, self.y - 26, self.x + 42, self.y + 26
 
 
-class Bullet(gfw.Sprite):
-    def __init__(self, x, y):
-        # Bullet 클래스 초기화
-        super().__init__('res/laser_1.png', x, y)
-        self.speed = 400  # 초당 400 픽셀 이동
-        self.max_y = get_canvas_height() + self.image.h
-        self.power = 40
-        self.layer_index = gfw.top().world.layer.bullet
-
-    def update(self):
-        # 매 프레임마다 업데이트
-        self.y += self.speed * gfw.frame_time
-        if self.y > self.max_y:
-            gfw.top().world.remove(self)
+# class Bullet(gfw.Sprite):
+#     def __init__(self, x, y):
+#         # Bullet 클래스 초기화
+#         super().__init__('res/laser_1.png', x, y)
+#         self.speed = 400  # 초당 400 픽셀 이동
+#         self.max_y = get_canvas_height() + self.image.h
+#         self.power = 40
+#         self.layer_index = gfw.top().world.layer.bullet
+#
+#     def update(self):
+#         # 매 프레임마다 업데이트
+#         self.y += self.speed * gfw.frame_time
+#         if self.y > self.max_y:
+#             gfw.top().world.remove(self)

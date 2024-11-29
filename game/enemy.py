@@ -1,3 +1,5 @@
+# enemy.py
+
 from pico2d import *
 import random
 import gfw
@@ -21,9 +23,9 @@ class Enemy(gfw.AnimSprite):
     MAX_SCALE = 2.5  # 최대 스케일
     gauge = None
 
-    def __init__(self, index, level):
-        # 인덱스와 레벨을 바탕으로 적의 위치 초기화
-        x = self.WIDTH * index + self.WIDTH // 2
+    def __init__(self, index, level, background):
+        self.background = background  # 배경 객체 저장
+        x = self.background.get_center_x()
         y = get_canvas_height() // 2  # y 위치를 화면 중간으로 설정
         self.level = 4
         super().__init__(f'res/police_Car.png', x, y, 10)  # 10fps 속도로 적 스프라이트 로드
@@ -41,6 +43,7 @@ class Enemy(gfw.AnimSprite):
     def update(self):
         # 적의 위치 업데이트
         self.y += self.speed * gfw.frame_time
+        self.x = self.background.get_center_x()
         if self.y < -self.WIDTH:
             gfw.top().world.remove(self)  # 화면 밖으로 나가면 적 제거
         self.frame_index = (self.frame_index + 1) % len(self.IMAGE_RECTS[0])  # 프레임 인덱스 업데이트
@@ -76,9 +79,11 @@ class Enemy(gfw.AnimSprite):
 class EnemyGen:
     GEN_INTERVAL = 5.0  # 적 생성 간격 시간
     GEN_INIT = 1.0  # 초기 생성 지연 시간
-    def __init__(self):
+
+    def __init__(self, background):
         self.time = self.GEN_INTERVAL - self.GEN_INIT  # 타이머 초기화
         self.wave_index = 0  # 파도 인덱스 초기화
+        self.background = background  # 배경 객체 저장
 
     def draw(self): pass
 
@@ -87,14 +92,12 @@ class EnemyGen:
         if self.time < self.GEN_INTERVAL:
             return  # 생성 간격 시간이 지나지 않았으면 대기
 
-        # 가운데에 적 생성
+        # 적 생성 시 배경의 가운데로 설정
         level = (self.wave_index + 18) // 10 - random.randrange(3)
         level = clamp(1, level, Enemy.MAX_LEVEL)  # 적 레벨 제한
-        mid_x = get_canvas_width() // 2  # 화면 중간 x 좌표
-        enemy = Enemy(mid_x // 100, level)
-        enemy.x = mid_x  # 적의 x 좌표를 화면 중간으로 설정
+        enemy = Enemy(self.background.get_center_x() // 100, level, self.background)  # 배경의 가운데 x 좌표로 적 생성
+        enemy.x = self.background.get_center_x()  # 적의 x 좌표를 배경의 가운데로 설정
         gfw.top().world.append(enemy, gfw.top().world.layer.enemy)
 
         self.time -= self.GEN_INTERVAL  # 타이머 초기화
         self.wave_index += 1  # 파도 인덱스 증가
-
