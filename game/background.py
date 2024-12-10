@@ -30,6 +30,9 @@ class Background(gfw.Sprite):
         self.min_x = get_canvas_width() // 4  # 최소 x 위치
         self.max_x = (get_canvas_width() // 4) * 3  # 최대 x 위치
         self.roll_time = 0  # 롤링 시간 초기화
+        self.fuel = 100
+        self.score = 0
+        self.roadCheck = 100
 
         # 이미지 시리즈 로드
         self.images = [load_image(f'res/road{i}.png') for i in range(1, 5)]
@@ -44,9 +47,9 @@ class Background(gfw.Sprite):
         pair = (e.type, e.key)
         if pair in Background.KEY_MAP:
             self.dx += Background.KEY_MAP[pair]  # 키 입력에 따른 dx 값 조정
-        elif pair in Background.SPEED_KEY_MAP:
+        elif pair in Background.SPEED_KEY_MAP and self.fuel>0:
             self.dspeed = Background.SPEED_KEY_MAP[pair]  # 키 입력에 따른 속도 변화 조정
-        print(self.speed, self.dspeed)
+        print(self.speed, self.dspeed, self.fuel, self.score)
 
     def update(self):
         if self.x <= self.min_x or self.x >= self.max_x:
@@ -58,9 +61,19 @@ class Background(gfw.Sprite):
             self.dspeed = -1  # 속도 감소
         elif self.dspeed == -2:
             self.dspeed = 0  # 속도 변화 없음
+
+        if self.fuel <= 0:
+            self.dspeed = -1
+        if self.score % 500 == 1:
+            self.fuel += 100
+
+        self.fuel -= self.speed*0.001 #연료 감소
         self.speed += self.dspeed * gfw.frame_time * 10  # 속도 계산
         self.x += self.dx * self.speed * gfw.frame_time  # x 위치 계산
         self.x = clamp(self.min_x, self.x, self.max_x)  # x 위치를 최소와 최대 값으로 제한
+        self.score += self.speed*0.01#간 거리
+
+
 
         self.x = self.x % self.width  # 배경이 반복되도록 설정
         self.update_roll()  # 롤링 업데이트

@@ -100,4 +100,3 @@ class EnemyGen:
         gfw.top().world.append(enemy, gfw.top().world.layer.enemy)
 
         self.time -= self.GEN_INTERVAL  # 타이머 초기화
-        self.wave_index += 1  # 파도 인덱스 증가
