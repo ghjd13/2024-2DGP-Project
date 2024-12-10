@@ -19,7 +19,7 @@ shows_object_count = True
 
 
 def enter():
-    global background, fighter, score_sprite, fuel_sprite
+    global background, fighter, score_sprite, fuel_sprite, speed_sprite
 
     # 배경 이미지를 추가합니다.
     background = Background()
@@ -37,6 +37,10 @@ def enter():
     fuel_sprite = gfw.ScoreSprite('res/number_24x32.png', 75, 50)
     world.append(fuel_sprite, world.layer.ui)
 
+    # UI 레이어에 속도 스프라이트를 추가합니다.
+    speed_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, 50)
+    world.append(speed_sprite, world.layer.ui)
+
     # 적 생성기와 충돌 검사기를 추가합니다.
     world.append(EnemyGen(background), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
@@ -46,6 +50,8 @@ def enter():
     score = 0
     global fuel
     fuel = 100
+    global speed
+    speed = 100
 
 def exit():
     # 월드를 정리합니다.
@@ -78,10 +84,13 @@ class CollisionChecker:
         enemies = world.objects_at(world.layer.enemy)
 
         self.score = background.score
-        score_sprite.score = self.score // 10
+        score_sprite.score = self.score // 100
 
         self.fuel = background.fuel
         fuel_sprite.score = self.fuel // 1
+
+        self.speed = background.speed
+        speed_sprite.score = self.speed // 1
 
         for e in enemies:
             collided = False
@@ -89,7 +98,7 @@ class CollisionChecker:
             # 자동차와 적이 충돌했는지 확인합니다.
             if gfw.collides_box(fighter, e):
                 world.remove(e)
-                breakㅛ
+                break
         pass
 
 
