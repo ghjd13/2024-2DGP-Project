@@ -29,7 +29,9 @@ class Enemy(gfw.AnimSprite):
         self.y = get_canvas_height() // 2  # y 위치를 화면 중간으로 설정
         super().__init__(f'res/police_Car.png', self.x, self.y, 10)  # 10fps 속도로 적 스프라이트 로드
 
-        self.speed = -100  # 이동 속도 (초당 100 픽셀)
+        self.basicSpeed = -(self.background.speed*0.8) # 기본 속도
+        self.speed = self.basicSpeed  # 이동 속도 (초당 100 픽셀)
+
         self.max_life = 100  # 최대 생명력 설정 (고정값)
         self.life = self.max_life  # 현재 생명력은 최대 생명력으로 시작
         self.score = self.max_life  # 점수는 최대 생명력과 동일
@@ -49,6 +51,8 @@ class Enemy(gfw.AnimSprite):
 
         if self.y < -self.WIDTH:
             gfw.top().world.remove(self)  # 화면 밖으로 나가면 적 제거
+        #자동차 스피드에 따라 스피드 변경
+        self.speed = -(self.basicSpeed+self.background.speed)  # 이동 속도 (초당 100 픽셀)
 
         self.frame_index = (self.frame_index + 1) % len(self.IMAGE_RECTS[0])  # 프레임 인덱스 업데이트
 
