@@ -1,6 +1,7 @@
 # background.py
 
 from pico2d import *
+import random
 import gfw
 
 class Background(gfw.Sprite):
@@ -22,26 +23,29 @@ class Background(gfw.Sprite):
 
     def __init__(self):
         super().__init__('res/roads/road1_1.png', get_canvas_width() // 2, get_canvas_height() // 2)
-        self.dx = 0  # x축 이동 거리
-        self.speed = 0  # 현재 속도
-        self.dspeed = 0  # 속도 변화
-        self.width = self.image.w * Background.IMAGE_MAG  # 배경 이미지의 너비
-        self.height = self.image.h * Background.IMAGE_MAG  # 배경 이미지의 높이
-        self.min_x = get_canvas_width() // 4  # 최소 x 위치
-        self.max_x = (get_canvas_width() // 4) * 3  # 최대 x 위치
-        self.roll_time = 0  # 롤링 시간 초기화
+        self.dx = 0
+        self.speed = 0
+        self.dspeed = 0
+        self.width = self.image.w * Background.IMAGE_MAG
+        self.height = self.image.h * Background.IMAGE_MAG
+        self.min_x = get_canvas_width() // 4
+        self.max_x = (get_canvas_width() // 4) * 3
+        self.roll_time = 0
         self.fuel = 100
         self.score = 0
         self.roadCheck = 100
 
         # 이미지 시리즈 로드
-        self.images = [
-            load_image(f'res/roads/road{i}_{j}.png') for i in range(1, 8) for j in range(1, 5)
-        ]
-        self.current_road_image_index = 5
-        self.current_image_index = 0  # 현재 이미지 인덱스 초기화
-        self.image_change_speed = 1  # 이미지 변경 속도
-        self.frame_count = 0  # 프레임 카운트 초기화
+        self.images = []
+        for j in range(1, 5):  # j는 1부터 4까지
+            image_path = f'res/roads/road4_{j}.png'  # 기본적으로 road4의 이미지를 로드
+            self.images.append(load_image(image_path))
+
+        # 현재 도로 인덱스 초기화
+        self.current_road_index = 4  # 초기 도로는 4로 설정
+        self.current_image_index = 0
+        self.image_change_speed = 1
+        self.frame_count = 0
 
     def get_center_x(self):
         return self.x
@@ -54,9 +58,21 @@ class Background(gfw.Sprite):
             self.dspeed = Background.SPEED_KEY_MAP[pair]  # 키 입력에 따른 속도 변화 조정
 
     def update(self):
-        #도로 변경
-        if self.roadCheck<self.score:
-            self.roadCheck += 100
+        # 도로 변경 체크
+        if self.roadCheck < self.score:
+            self.roadCheck += 50
+            self.current_road_index += random.randint(-1,1)  # 도로 인덱스를 증가
+
+            if self.current_road_index < 1:  # 최소 도로 인덱스가 0일 경우
+                self.current_road_index = 1  # 0 이하는 허용하지 않음
+            if self.current_road_index > 7:  # 최대 도로 인덱스가 7일 경우
+                self.current_road_index = 7  # 7 이상은 허용하지 않음
+
+            # 새로운 이미지 로드
+            self.images = []
+            for j in range(1, 5):
+                image_path = f'res/roads/road{self.current_road_index}_{j}.png'
+                self.images.append(load_image(image_path))
 
         if self.x <= self.min_x or self.x >= self.max_x:
             self.dspeed = -2  # 최소 또는 최대 위치에 도달하면 속도 감소

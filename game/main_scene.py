@@ -19,7 +19,7 @@ shows_object_count = True
 
 
 def enter():
-    global sky, screen_move,desert, background, fighter, score_sprite, fuel_sprite, speed_sprite
+    global sky, screen_move, desert, background, fighter, score_sprite, fuel_sprite, speed_sprite
 
     # 배경 객체를 먼저 초기화합니다.
     background = Background()
@@ -30,13 +30,13 @@ def enter():
     screen_move = (background.dx * background.speed) * 10
     sky = gfw.HorzFillBackground("res/NightSky.png", screen_move)
 
+    # screen_move 설정
+    sky.set_screen_move(screen_move)
 
     world.append(sky, world.layer.background)
     world.append(desert, world.layer.background)
     world.append(background, world.layer.background)
 
-
-    # 전투기 객체를 생성하고 추가합니다.
     fighter = Fighter()
     world.append(fighter, world.layer.fighter)
 

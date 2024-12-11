@@ -124,9 +124,13 @@ class HorzFillBackground(Background):
         self.dest_width = self.image.w * get_canvas_height() // self.image.h
         self.speed = speed
         self.scroll = 0
+        self.screen_move = 0  # 인스턴스 변수로 설정
 
     def update(self):
-        self.scroll += self.speed * gfw.frame_time + screen_move * gfw.frame_time
+        self.scroll += self.speed * gfw.frame_time + self.screen_move * gfw.frame_time
+
+    def set_screen_move(self, screen_move):
+        self.screen_move = screen_move  # 외부에서 screen_move를 설정할 수 있는 메서드 추가
 
     def draw(self):
         x = self.scroll % self.dest_width
