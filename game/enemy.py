@@ -54,7 +54,7 @@ class Enemy(gfw.AnimSprite):
 
     def draw(self):
         # 적 스프라이트 그리기
-        frame = self.IMAGE_RECTS[0][self.frame_index]  # 현재 프레임 선택
+        frame = self.IMAGE_RECTS[0][self.background.current_road_index]  # 현재 프레임 선택
 
         # 적이 아래로 갈수록 크기를 키움 (0.2배에서 2.5배)
         canvas_height = get_canvas_height()

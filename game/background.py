@@ -34,6 +34,7 @@ class Background(gfw.Sprite):
         self.fuel = 100
         self.score = 0
         self.roadCheck = 100
+        self.roadMove = 0
 
         # 이미지 시리즈 로드
         self.images = []
@@ -74,6 +75,9 @@ class Background(gfw.Sprite):
                 image_path = f'res/roads/road{self.current_road_index}_{j}.png'
                 self.images.append(load_image(image_path))
 
+        #도로 변화에 따라 자동차 이동
+        self.roadMove = ((self.current_road_index-4)*self.speed)*0.005
+
         if self.x <= self.min_x or self.x >= self.max_x:
             self.dspeed = -2  # 최소 또는 최대 위치에 도달하면 속도 감소
         elif self.speed < 0:
@@ -91,7 +95,7 @@ class Background(gfw.Sprite):
 
         self.fuel -= self.speed*0.001 #연료 감소
         self.speed += self.dspeed * gfw.frame_time * 10  # 속도 계산
-        self.x += self.dx * self.speed * gfw.frame_time  # x 위치 계산
+        self.x += self.dx * self.speed * gfw.frame_time + self.roadMove  # x 위치 계산
         self.x = clamp(self.min_x, self.x, self.max_x)  # x 위치를 최소와 최대 값으로 제한
         self.score += self.speed*0.01#간 거리
 
