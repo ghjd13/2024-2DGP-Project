@@ -100,7 +100,7 @@ class CollisionChecker:
         score_sprite.score = self.score // 100
 
         self.fuel = background.fuel
-        fuel_sprite.score = self.fuel // 1
+        fuel_sprite.score = self.fuel // 100
 
         self.speed = background.speed
         speed_sprite.score = self.speed // 1

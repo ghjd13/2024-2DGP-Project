@@ -31,7 +31,7 @@ class Background(gfw.Sprite):
         self.min_x = get_canvas_width() // 4
         self.max_x = (get_canvas_width() // 4) * 3
         self.roll_time = 0
-        self.fuel = 100
+        self.fuel = 10000
         self.score = 0
         self.roadCheck = 100
         self.roadMove = 0

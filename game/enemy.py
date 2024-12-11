@@ -81,29 +81,30 @@ class Enemy(gfw.AnimSprite):
 
 
 class EnemyGen:
-    GEN_INTERVAL = 5.0  # 적 생성 간격 시간
-    GEN_INIT = 1.0  # 초기 생성 지연 시간
+    GEN_INIT = 100  # 초기 생성 지연 거리
+    GEN_INTERVAL = GEN_INIT  # 적 생성 간격 거리
 
     def __init__(self, background):
-        self.time = self.GEN_INTERVAL - self.GEN_INIT  # 타이머 초기화
         self.wave_index = 0  # 파도 인덱스 초기화
         self.background = background  # 배경 객체 저장
 
     def draw(self): pass
 
     def update(self):
-        self.time += gfw.frame_time  # 타이머 업데이트
-        if self.time < self.GEN_INTERVAL:
-            return  # 생성 간격 시간이 지나지 않았으면 대기
+        road = self.background.score# 이동 거리
+        gen_threshold = self.GEN_INTERVAL
 
-        # 도로 인덱스에 따라 x 좌표 범위를 가져오기
-        min_x, max_x = self.get_x_range(self.background.current_road_index)
-        enemy_x = random.randint(min_x, max_x)  # 배경의 중심을 기준으로 랜덤 x 좌표 설정
+        if road < gen_threshold:
+            return  # 생성 간격 거리가 지나지 않았으면 대기
+        else:
+            # 도로 인덱스에 따라 x 좌표 범위를 가져오기
+            min_x, max_x = self.get_x_range(self.background.current_road_index)
+            enemy_x = random.randint(min_x, max_x)  # 배경의 중심을 기준으로 랜덤 x 좌표 설정
 
-        enemy = Enemy(enemy_x, self.background)  # 생성된 x 좌표로 적 생성
-        gfw.top().world.append(enemy, gfw.top().world.layer.enemy)
+            enemy = Enemy(enemy_x, self.background)  # 생성된 x 좌표로 적 생성
+            gfw.top().world.append(enemy, gfw.top().world.layer.enemy)
 
-        self.time -= self.GEN_INTERVAL  # 타이머 초기화
+            self.GEN_INTERVAL += 500  # 거리 초기화
 
     def get_x_range(self, road_index):
         # 도로 인덱스에 따라 x값 범위를 변경
