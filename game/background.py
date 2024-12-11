@@ -21,7 +21,7 @@ class Background(gfw.Sprite):
     MAX_ROLL = 0.4  # 최대 롤 값
 
     def __init__(self):
-        super().__init__('res/road1.png', get_canvas_width() // 2, get_canvas_height() // 2)
+        super().__init__('res/roads/road1_1.png', get_canvas_width() // 2, get_canvas_height() // 2)
         self.dx = 0  # x축 이동 거리
         self.speed = 0  # 현재 속도
         self.dspeed = 0  # 속도 변화
@@ -35,7 +35,10 @@ class Background(gfw.Sprite):
         self.roadCheck = 100
 
         # 이미지 시리즈 로드
-        self.images = [load_image(f'res/road{i}.png') for i in range(1, 5)]
+        self.images = [
+            load_image(f'res/roads/road{i}_{j}.png') for i in range(1, 8) for j in range(1, 5)
+        ]
+        self.current_road_image_index = 5
         self.current_image_index = 0  # 현재 이미지 인덱스 초기화
         self.image_change_speed = 1  # 이미지 변경 속도
         self.frame_count = 0  # 프레임 카운트 초기화
@@ -49,9 +52,12 @@ class Background(gfw.Sprite):
             self.dx += Background.KEY_MAP[pair]  # 키 입력에 따른 dx 값 조정
         elif pair in Background.SPEED_KEY_MAP and self.fuel>0:
             self.dspeed = Background.SPEED_KEY_MAP[pair]  # 키 입력에 따른 속도 변화 조정
-        print(self.speed, self.dspeed, self.fuel, self.score)
 
     def update(self):
+        #도로 변경
+        if self.roadCheck<self.score:
+            self.roadCheck += 100
+
         if self.x <= self.min_x or self.x >= self.max_x:
             self.dspeed = -2  # 최소 또는 최대 위치에 도달하면 속도 감소
         elif self.speed < 0:
@@ -88,11 +94,9 @@ class Background(gfw.Sprite):
         if self.image_change_speed > 0 and self.frame_count % self.image_change_speed == 0:
             self.current_image_index = (self.current_image_index + 1) % len(self.images)  # 이미지 인덱스 업데이트
 
-
     def draw(self):
         current_image = self.images[self.current_image_index]
-        current_image.draw(self.x, self.y)  # 현재 이미지를 그리기
-        # 배경이 반복되도록 두 번째 이미지를 그리기
+        current_image.draw(self.x, self.y)
         current_image.draw(self.x - self.width, self.y)
 
     def update_roll(self):

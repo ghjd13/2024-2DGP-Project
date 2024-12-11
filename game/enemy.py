@@ -72,8 +72,6 @@ class Enemy(gfw.AnimSprite):
         top = self.y + (frame[3] * scale) // 2
         return left, bottom, right, top
 
-    def __repr__(self):
-        return f'Enemy({self.level}/{self.life})'  # 디버깅을 위한 문자열 표현
 
 
 class EnemyGen:

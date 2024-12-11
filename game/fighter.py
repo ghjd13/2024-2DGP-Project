@@ -11,9 +11,6 @@ class Fighter(gfw.Sprite):
         (SDL_KEYUP, SDLK_LEFT): 1,
         (SDL_KEYUP, SDLK_RIGHT): -1,
     }
-    LASER_INTERVAL = 999999  # 레이저 발사 간격 (초)
-    SPARK_INTERVAL = 0  # 스파크 간격 (초)
-    SPARK_OFFSET = 28  # 스파크 오프셋
     MAX_ROLL = 0.4  # 최대 롤 값
     IMAGE_RECTS = [
         (0, 0, 45, 26),
@@ -88,28 +85,6 @@ class Fighter(gfw.Sprite):
         # if self.laser_time < Fighter.SPARK_INTERVAL:
         #     self.spark_image.draw(self.x, self.y + Fighter.SPARK_OFFSET)
 
-    def fire(self):
-        # 레이저 발사
-        self.laser_time = 0
-        world = gfw.top().world
-        world.append(Bullet(self.x, self.y), world.layer.bullet)
-
     def get_bb(self):
         # 충돌 박스 반환
         return self.x - 42, self.y - 26, self.x + 42, self.y + 26
-
-
-# class Bullet(gfw.Sprite):
-#     def __init__(self, x, y):
-#         # Bullet 클래스 초기화
-#         super().__init__('res/laser_1.png', x, y)
-#         self.speed = 400  # 초당 400 픽셀 이동
-#         self.max_y = get_canvas_height() + self.image.h
-#         self.power = 40
-#         self.layer_index = gfw.top().world.layer.bullet
-#
-#     def update(self):
-#         # 매 프레임마다 업데이트
-#         self.y += self.speed * gfw.frame_time
-#         if self.y > self.max_y:
-#             gfw.top().world.remove(self)

@@ -19,11 +19,22 @@ shows_object_count = True
 
 
 def enter():
-    global background, fighter, score_sprite, fuel_sprite, speed_sprite
+    global sky, screen_move,desert, background, fighter, score_sprite, fuel_sprite, speed_sprite
+
+    # 배경 객체를 먼저 초기화합니다.
+    background = Background()
 
     # 배경 이미지를 추가합니다.
-    background = Background()
+    desert = gfw.Background("res/desert.png")
+
+    screen_move = (background.dx * background.speed) * 10
+    sky = gfw.HorzFillBackground("res/NightSky.png", screen_move)
+
+
+    world.append(sky, world.layer.background)
+    world.append(desert, world.layer.background)
     world.append(background, world.layer.background)
+
 
     # 전투기 객체를 생성하고 추가합니다.
     fighter = Fighter()
@@ -45,7 +56,7 @@ def enter():
     world.append(EnemyGen(background), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
 
-    # 점수를 초기화합니다.
+    # 점수, 연료, 속도를 초기화합니다.
     global score
     score = 0
     global fuel
@@ -80,6 +91,8 @@ class CollisionChecker:
         pass
 
     def update(self):
+        screen_move = (background.dx * background.speed) * 10
+
         # 적 객체를 가져옵니다.
         enemies = world.objects_at(world.layer.enemy)
 
