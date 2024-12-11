@@ -124,8 +124,9 @@ class HorzFillBackground(Background):
         self.dest_width = self.image.w * get_canvas_height() // self.image.h
         self.speed = speed
         self.scroll = 0
+
     def update(self):
-        self.scroll += self.speed * gfw.frame_time
+        self.scroll += self.speed * gfw.frame_time + screen_move * gfw.frame_time
 
     def draw(self):
         x = self.scroll % self.dest_width
@@ -134,6 +135,7 @@ class HorzFillBackground(Background):
         while x < max_x:
             self.image.draw_to_origin(x, 0, self.dest_width, self.height)
             x += self.dest_width
+
 
 class VertFillBackground(Background):
     def __init__(self, filename, speed=0):
