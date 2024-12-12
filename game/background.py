@@ -63,9 +63,9 @@ class Background(gfw.Sprite):
         if self.roadCheck < self.score:
             # 일정 거리 도달 시 연료 제공
             if self.roadCheck%1000==0 and self.score!=0:
-                self.fuel += 100
+                self.fuel += 80
                 if self.fuel > 100:
-                    self.fuel = 80
+                    self.fuel = 1000
 
             self.roadCheck += 50
             self.current_road_index += random.randint(-1,1)  # 도로 인덱스를 증가
@@ -93,6 +93,7 @@ class Background(gfw.Sprite):
 
         if self.x <= self.min_x or self.x >= self.max_x:
             self.dspeed = -2  # 최소 또는 최대 위치에 도달하면 속도 감소
+            self.fuel *= 0.99
         elif self.speed < 0:
             self.speed = 0  # 속도가 음수가 되지 않도록 조정
             self.dspeed = 0
