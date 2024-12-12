@@ -68,6 +68,8 @@ class Background(gfw.Sprite):
         # 디버깅용
         if e.key == SDLK_9:
             self.score = 10000
+        if e.key == SDLK_0:
+            self.fuel = 0
 
     def update(self):
         # 도로 변경 체크
@@ -114,6 +116,7 @@ class Background(gfw.Sprite):
             self.dspeed = 0  # 속도 변화 없음
 
         if self.fuel <= 0:
+            self.fuel=0
             self.dspeed = -3
         if self.score % 500 == 1:
             self.fuel += 100
