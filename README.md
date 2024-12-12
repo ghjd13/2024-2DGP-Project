@@ -63,53 +63,99 @@
 ### 1차 발표 영상 YouTube link
 https://youtu.be/FwmZ5BERFtg?si=Ae5WCi3fTRH9whiM
 
-    ○1차 발표 전까지의 활동 정리
-        10.04일 레이싱 게임으로 개발 방향
-	    10.26 - 10.27일 추가적으로 개발할 신, 객체 구상
-    ㅇ2차 발표전까지 활동 정리
-        10.29 자동차 좌우이동 구현
-	https://youtu.be/YZiQRvdvx-I?si=s6JOe6a6U0vrCxUx
+ㅇ1차 발표 전까지의 활동 정리
+---
+10.04일 레이싱 게임으로 개발 방향
+10.26 - 10.27일 추가적으로 개발할 신, 객체 구상
 
-	10.31 가속, 감속, 좌우 이동 구현, 도로 가장자리로 가면 감속 기믹 추가
-	https://youtu.be/3nYC5xvbv70?si=3I10tRmKIfCz63eh
-	10.31 배경화면 이미지 추가
+ㅇ2차 발표전까지 활동 정리
+---
+10.29 자동차 좌우이동 구현
+https://youtu.be/YZiQRvdvx-I?si=s6JOe6a6U0vrCxUx
+
+10.31 가속, 감속, 좌우 이동 구현, 도로 가장자리로 가면 감속 기믹 추가
+https://youtu.be/3nYC5xvbv70?si=3I10tRmKIfCz63eh
+10.31 배경화면 이미지 추가
 	
-	11.02 브레이크 추가, 적 생성기 비활성화
-	https://youtu.be/IFuHxSZZlVY?si=7pBWNKRKxSGN2y2m
+11.02 브레이크 추가, 적 생성기 비활성화
+https://youtu.be/IFuHxSZZlVY?si=7pBWNKRKxSGN2y2m
 	
-	11.07 read.md 파일 업데이트(구현 예정 사항 목록 추가)
-	11.13 도로 리소스 수정(적용은 안함)
-	11.21 적(경찰차) 생성
+11.07 read.md 파일 업데이트(구현 예정 사항 목록 추가)
+11.13 도로 리소스 수정(적용은 안함)
+11.21 적(경찰차) 생성
+
+ㅇ최종 발표전까지 활동 정리
+---
+12.10 
+점수, 연료 추가, 본격적으로 개발 시작
+
+12.11 
+배경 이미지 변경 및 도로 상태 변경
+도로 변화에 따라 자동차 이동
+
+12.12
+막판 스퍼트
+https://youtu.be/TkMlBy86PNs
+완성
+https://youtu.be/_mG7EHMQluk
+
     
 # 개발 계획
 
 
-# 개발 목표(26%/100%)
-## 로딩신(0%/10%)
+# 개발 목표(66%/100%) +40%
+##엔딩신(10%/10%) +10%
+### 이미지(5%/5%)
+ [x]체포엔딩
+ [x]도착엔딩
+### 코드(5%/5%)
+ [x]점수
+ [ㅌ]엔딩에 따라 화면 변경
+
+## 로딩신(0%/10%) (포기)
 ### 이미지(0%/5%)
 ### 코드(0%/5%)
 
-## 타이틀신(3%/10%)
-### 이미지(3%/5%)
+## 타이틀신(10%/10%) +7%
+### 이미지(5%/5%) +2%
 - [X] 타이틀 화면
-- [ ] 게임 시작 버튼
-### 코드(0%/5%)
+- [X] 게임 시작 버튼
+- [X] 게임 설명 버튼
+### 코드(5%/5%) +5%
+- [X] 타이틀 화면
+- [X] 게임 시작 버튼
 
-## 캐릭선택신(0%/30%)
+## 캐릭선택신(0%/10%) (포기)
 ### 이미지(0%/5%)
 - [ ] 배경 화면
 ### 코드(0%/5%)
 
-## 게임화면신 (20%/50%)
-### 이미지(5%/10%)
-- [ ] 도로
+## 게임화면신 (46%/50%) +26%
+### 이미지(10%/10%) +5%
+- [X] 도로
 - [X] 적
 - [X] 주인공
-### 코드(15%/40%)
+### 코드(36%/40%) +21%
 - [X] 감속, 가속
-- [ ] 도로 커브
-- [ ] 점수
-- [ ] 연료
-- [ ] 적
+- [X] 도로 커브
+- [X] 점수
+- [X] 연료
+- [△] 적
     - [x] 적 생성
     - [ ] 적 움직임
+
+# 출처
+엔진음
+Sound Effect by <a href="https://pixabay.com/ko/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47745">freesound_community</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=47745">Pixabay</a>
+충돌음
+Sound Effect by <a href="https://pixabay.com/ko/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6054">freesound_community</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6054">Pixabay</a>
+
+## 메인음악
+https://suno.com/song/2f7faaa4-30b6-4657-acea-42326669e90a
+
+## 폰트
+경기천년제목
+PF스타더스트
+
+## 에셋
+https://chasersgaming.itch.io/racing-asset-touring-car-nes-psuedo
