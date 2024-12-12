@@ -1,8 +1,18 @@
 from pico2d import *
 from gfw import *
 import pickle
+import os
+import sys
 
-FILENAME = 'score.pickle'
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    if getattr(sys, 'frozen', False):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+FILENAME = resource_path('score.pickle')
 
 canvas_width = 640
 canvas_height = 480
@@ -11,7 +21,6 @@ transparent = True
 
 world = World(2)
 
-import sys
 self = sys.modules[__name__]
 
 class Entry:
@@ -21,7 +30,6 @@ class Entry:
     def timestr(self):
         return time.strftime('%Y-%m-%d %H:%M', self.time)
 
-
 try:
     f = open(FILENAME, "rb")
     scores = pickle.load(f)
@@ -29,7 +37,7 @@ try:
     print("Scores:", scores)
 except:
     print("No highscore file")
-    scores = [ ]
+    scores = []
 
 just_added = None
 def add(score, ending):
@@ -38,11 +46,11 @@ def add(score, ending):
     just_added = entry
 
     global Ending
-    Ending =ending
+    Ending = ending
 
     global scores
     scores.append(entry)
-    scores.sort(key=lambda e:e.score)
+    scores.sort(key=lambda e: e.score)
     scores = scores[:10]
     try:
         with open(FILENAME, "wb") as f:
@@ -52,8 +60,8 @@ def add(score, ending):
 
 def enter():
     global game_over_sprite, good_ending_sprite
-    game_over_sprite = gfw.Background('res/game_over.png')
-    good_ending_sprite = gfw.Background('res/good_ending.png')
+    game_over_sprite = gfw.Background(resource_path('res/game_over.png'))
+    good_ending_sprite = gfw.Background(resource_path('res/good_ending.png'))
 
     if Ending == 0:
         world.append(game_over_sprite, 1)
@@ -61,10 +69,10 @@ def enter():
         world.append(good_ending_sprite, 1)
 
     global frame_9p
-    frame_9p = gfw.image.NinePatch(gfw.image.load('res/hs_frame.png'), 30, 30, 30, 30)
+    frame_9p = gfw.image.NinePatch(gfw.image.load(resource_path('res/hs_frame.png')), 30, 30, 30, 30)
 
     global font
-    font = gfw.font.load('res/PF스타더스트.TTF', 25)
+    font = gfw.font.load(resource_path('res/PF스타더스트.TTF'), 25)
     world.append(self, 1)
 
 def exit():
@@ -75,6 +83,7 @@ def update():
 
 COLOR_NORMAL = (0, 0, 0)
 COLOR_ADDED = (0, 0, 192)
+
 def draw():
     cw, ch = get_canvas_width(), get_canvas_height()
     frame_9p.draw(cw // 2, ch // 2, cw - 100, ch - 100)
@@ -82,7 +91,7 @@ def draw():
     for score in scores:
         color = COLOR_ADDED if score == just_added else COLOR_NORMAL
         font.draw(x, y, f'{score.score:5.1f}KM', color)
-        gfw.font.draw_centered_text(font, "",x, y, color)
+        gfw.font.draw_centered_text(font, "", x, y, color)
         font.draw(x + 150, y, score.timestr(), color)
         y -= 35
 
@@ -107,4 +116,3 @@ def handle_event(e):
 
 if __name__ == '__main__':
     gfw.start_main_module()
-

@@ -1,9 +1,16 @@
-# enemy.py
-
 from pico2d import *
 import random
 import gfw
+import os
+import sys
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    if getattr(sys, 'frozen', False):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 class Enemy(gfw.AnimSprite):
     IMAGE_RECTS = [
@@ -27,9 +34,9 @@ class Enemy(gfw.AnimSprite):
         self.background = background  # 배경 객체 저장
         self.x = enemy_x  # 생성된 x 좌표로 설정
         self.y = get_canvas_height() // 2  # y 위치를 화면 중간으로 설정
-        super().__init__(f'res/police_Car.png', self.x, self.y, 10)  # 10fps 속도로 적 스프라이트 로드
+        super().__init__(resource_path('res/police_Car.png'), self.x, self.y, 10)  # 10fps 속도로 적 스프라이트 로드
 
-        self.basicSpeed = -(self.background.speed*0.8) # 기본 속도
+        self.basicSpeed = -(self.background.speed * 0.8)  # 기본 속도
         self.speed = self.basicSpeed  # 이동 속도 (초당 100 픽셀)
 
         self.max_life = 100  # 최대 생명력 설정 (고정값)
@@ -37,13 +44,13 @@ class Enemy(gfw.AnimSprite):
 
         # 게이지 로드
         if Enemy.gauge is None:
-            Enemy.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
+            Enemy.gauge = gfw.Gauge(resource_path('res/gauge_fg.png'), resource_path('res/gauge_bg.png'))
             print('게이지를 한 번만 로드합니다')
 
         self.layer_index = gfw.top().world.layer.enemy  # 렌더링을 위한 레이어 인덱스
         self.frame_index = 0  # 현재 프레임 인덱스
 
-        self.collided = False #충돌 체크
+        self.collided = False  # 충돌 체크
 
     def update(self):
         # 적의 위치 업데이트
@@ -54,8 +61,8 @@ class Enemy(gfw.AnimSprite):
             gfw.top().world.remove(self)  # 화면 밖으로 나가면 적 제거
         if self.y > (get_canvas_height() // 2):
             gfw.top().world.remove(self)  # 화면 밖으로 나가면 적 제거
-        #자동차 스피드에 따라 스피드 변경
-        self.speed = -(self.basicSpeed+self.background.speed)  # 이동 속도 (초당 100 픽셀)
+        # 자동차 스피드에 따라 스피드 변경
+        self.speed = -(self.basicSpeed + self.background.speed)  # 이동 속도 (초당 100 픽셀)
 
         self.frame_index = (self.frame_index + 1) % len(self.IMAGE_RECTS[0])  # 프레임 인덱스 업데이트
 
@@ -85,8 +92,6 @@ class Enemy(gfw.AnimSprite):
         top = self.y + (frame[3] * scale) // 2
         return left, bottom, right, top
 
-
-
 class EnemyGen:
     GEN_INIT = 100  # 초기 생성 지연 거리
     GEN_INTERVAL = GEN_INIT  # 적 생성 간격 거리
@@ -95,10 +100,11 @@ class EnemyGen:
         self.wave_index = 0  # 파도 인덱스 초기화
         self.background = background  # 배경 객체 저장
 
-    def draw(self): pass
+    def draw(self):
+        pass
 
     def update(self):
-        road = self.background.score# 이동 거리
+        road = self.background.score  # 이동 거리
         gen_threshold = self.GEN_INTERVAL
 
         if road < gen_threshold:
