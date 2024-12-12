@@ -19,7 +19,7 @@ shows_object_count = True
 
 
 def enter():
-    global sky, screen_move, desert, background, fighter, score_sprite, fuel_sprite, speed_sprite
+    global sky, screen_move, city, desert, background, fighter, score_sprite, fuel_sprite, speed_sprite
 
     # 배경 객체를 먼저 초기화합니다.
     background = Background()
@@ -27,7 +27,9 @@ def enter():
     # 배경 이미지를 추가합니다.
     desert = gfw.Background("res/desert.png")
 
-    screen_move = (background.dx * background.speed) * 10
+    city =
+
+    screen_move = 0
     sky = gfw.HorzFillBackground("res/NightSky.png", screen_move)
 
     # screen_move 설정
@@ -60,9 +62,9 @@ def enter():
     global score
     score = 0
     global fuel
-    fuel = 100
+    fuel = 1000
     global speed
-    speed = 100
+    speed = 1000
 
 def exit():
     # 월드를 정리합니다.
@@ -91,28 +93,34 @@ class CollisionChecker:
         pass
 
     def update(self):
-        screen_move = (background.dx * background.speed) * 10
 
         # 적 객체를 가져옵니다.
         enemies = world.objects_at(world.layer.enemy)
+        self.screen_move = (background.dx * background.speed) * 10000
+        print(self.screen_move)
 
         self.score = background.score
         score_sprite.score = self.score // 100
 
         self.fuel = background.fuel
-        fuel_sprite.score = self.fuel // 100
+        fuel_sprite.score = self.fuel // 10
 
         self.speed = background.speed
         speed_sprite.score = self.speed // 1
 
         for e in enemies:
-            collided = False
-            if collided: break
             # 자동차와 적이 충돌했는지 확인합니다.
-            if gfw.collides_box(fighter, e):
-                world.remove(e)
+            if gfw.collides_box(fighter, e) and not e.collided:
+                background.speed *= 0.9  # 속도 감속
+                background.fuel *= 0.999
+                e.basicSpeed = e.basicSpeed * 1.001  # 넉백
+                e.collided = True
                 break
+            else:
+                e.collided = False
+
         pass
+
 
 
 class MainScenUI:

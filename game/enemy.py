@@ -34,7 +34,6 @@ class Enemy(gfw.AnimSprite):
 
         self.max_life = 100  # 최대 생명력 설정 (고정값)
         self.life = self.max_life  # 현재 생명력은 최대 생명력으로 시작
-        self.score = self.max_life  # 점수는 최대 생명력과 동일
 
         # 게이지 로드
         if Enemy.gauge is None:
@@ -44,12 +43,16 @@ class Enemy(gfw.AnimSprite):
         self.layer_index = gfw.top().world.layer.enemy  # 렌더링을 위한 레이어 인덱스
         self.frame_index = 0  # 현재 프레임 인덱스
 
+        self.collided = False #충돌 체크
+
     def update(self):
         # 적의 위치 업데이트
         self.y += self.speed * gfw.frame_time
         self.x += self.background.dx * self.background.speed * gfw.frame_time
 
         if self.y < -self.WIDTH:
+            gfw.top().world.remove(self)  # 화면 밖으로 나가면 적 제거
+        if self.y > (get_canvas_height() // 2):
             gfw.top().world.remove(self)  # 화면 밖으로 나가면 적 제거
         #자동차 스피드에 따라 스피드 변경
         self.speed = -(self.basicSpeed+self.background.speed)  # 이동 속도 (초당 100 픽셀)

@@ -31,7 +31,7 @@ class Background(gfw.Sprite):
         self.min_x = get_canvas_width() // 4
         self.max_x = (get_canvas_width() // 4) * 3
         self.roll_time = 0
-        self.fuel = 10000
+        self.fuel = 1000
         self.score = 0
         self.roadCheck = 100
         self.roadMove = 0
@@ -61,6 +61,12 @@ class Background(gfw.Sprite):
     def update(self):
         # 도로 변경 체크
         if self.roadCheck < self.score:
+            # 일정 거리 도달 시 연료 제공
+            if self.roadCheck%1000==0 and self.score!=0:
+                self.fuel += 100
+                if self.fuel > 100:
+                    self.fuel = 80
+
             self.roadCheck += 50
             self.current_road_index += random.randint(-1,1)  # 도로 인덱스를 증가
 
@@ -68,6 +74,7 @@ class Background(gfw.Sprite):
                 self.current_road_index = 1  # 0 이하는 허용하지 않음
             if self.current_road_index > 7:  # 최대 도로 인덱스가 7일 경우
                 self.current_road_index = 7  # 7 이상은 허용하지 않음
+
 
             # 새로운 이미지 로드
             self.images = []
@@ -77,6 +84,12 @@ class Background(gfw.Sprite):
 
         #도로 변화에 따라 자동차 이동
         self.roadMove = ((self.current_road_index-4)*self.speed)*0.005
+
+        self.fuel -= self.speed*0.001 #연료 감소
+        self.speed += self.dspeed * gfw.frame_time * 10  # 속도 계산
+        self.x += self.dx * self.speed * gfw.frame_time + self.roadMove  # x 위치 계산
+        self.x = clamp(self.min_x, self.x, self.max_x)  # x 위치를 최소와 최대 값으로 제한
+        self.score += self.speed*0.01#간 거리
 
         if self.x <= self.min_x or self.x >= self.max_x:
             self.dspeed = -2  # 최소 또는 최대 위치에 도달하면 속도 감소
@@ -89,15 +102,9 @@ class Background(gfw.Sprite):
             self.dspeed = 0  # 속도 변화 없음
 
         if self.fuel <= 0:
-            self.dspeed = -1
+            self.dspeed = -3
         if self.score % 500 == 1:
             self.fuel += 100
-
-        self.fuel -= self.speed*0.001 #연료 감소
-        self.speed += self.dspeed * gfw.frame_time * 10  # 속도 계산
-        self.x += self.dx * self.speed * gfw.frame_time + self.roadMove  # x 위치 계산
-        self.x = clamp(self.min_x, self.x, self.max_x)  # x 위치를 최소와 최대 값으로 제한
-        self.score += self.speed*0.01#간 거리
 
 
 
