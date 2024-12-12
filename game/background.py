@@ -53,10 +53,15 @@ class Background(gfw.Sprite):
 
     def handle_event(self, e):
         pair = (e.type, e.key)
+
         if pair in Background.KEY_MAP:
             self.dx += Background.KEY_MAP[pair]  # 키 입력에 따른 dx 값 조정
         elif pair in Background.SPEED_KEY_MAP and self.fuel>0:
             self.dspeed = Background.SPEED_KEY_MAP[pair]  # 키 입력에 따른 속도 변화 조정
+
+        # 디버깅용
+        if e.key == SDLK_9:
+            self.score = 10000
 
     def update(self):
         # 도로 변경 체크
@@ -64,7 +69,7 @@ class Background(gfw.Sprite):
             # 일정 거리 도달 시 연료 제공
             if self.roadCheck%1000==0 and self.score!=0:
                 self.fuel += 80
-                if self.fuel > 100:
+                if self.fuel > 1000:
                     self.fuel = 1000
 
             self.roadCheck += 50

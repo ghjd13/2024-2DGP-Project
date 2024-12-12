@@ -95,9 +95,10 @@ class CollisionChecker:
         # 적 객체를 가져옵니다.
         enemies = world.objects_at(world.layer.enemy)
 
+
         sky.speed = (background.dx * background.speed) * 0.1
         city.speed = (background.dx * background.speed) * 0.5
-        city.y = (canvas_height*((background.score/100)*0.01))-150
+        city.y = (canvas_height*((background.score/100)*0.01))-400
         print(city.y)
 
         self.score = background.score
