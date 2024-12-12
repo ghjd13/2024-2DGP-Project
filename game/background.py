@@ -74,7 +74,7 @@ class Background(gfw.Sprite):
         if self.roadCheck < self.score:
             # 일정 거리 도달 시 연료 제공
             if self.roadCheck%1000==0 and self.score!=0:
-                self.fuel += 80
+                self.fuel += 50
                 if self.fuel > 1000:
                     self.fuel = 1000
 
