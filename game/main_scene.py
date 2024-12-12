@@ -64,6 +64,13 @@ def enter():
     global speed
     speed = 1000
 
+    global crash, mainMusic
+    crash = gfw.sound.sfx("res/sound/crash.wav")
+    mainMusic = gfw.sound.music("res/sound/mainMusic.mp3")
+
+    mainMusic.play()
+    mainMusic.repeat_play()
+
 def exit():
     # 월드를 정리합니다.
     world.clear()
@@ -99,7 +106,6 @@ class CollisionChecker:
         sky.speed = (background.dx * background.speed) * 0.1
         city.speed = (background.dx * background.speed) * 0.5
         city.y = (canvas_height*((background.score/100)*0.01))-400
-        print(city.y)
 
         self.score = background.score
         score_sprite.score = self.score // 100
@@ -108,11 +114,12 @@ class CollisionChecker:
         fuel_sprite.score = self.fuel // 10
 
         self.speed = background.speed
-        speed_sprite.score = self.speed // 1
+        speed_sprite.score = self.speed //1
 
         for e in enemies:
             # 자동차와 적이 충돌했는지 확인합니다.
             if gfw.collides_box(fighter, e) and not e.collided:
+                crash.play()
                 background.speed *= 0.9  # 속도 감속
                 background.fuel *= 0.99
                 e.basicSpeed = e.basicSpeed * 1.001  # 넉백

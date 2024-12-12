@@ -36,6 +36,8 @@ class Background(gfw.Sprite):
         self.roadCheck = 100
         self.roadMove = 0
 
+        self.engine = gfw.sound.sfx("res/sound/engine.wav")
+
         # 이미지 시리즈 로드
         self.images = []
         for j in range(1, 5):  # j는 1부터 4까지
@@ -58,6 +60,10 @@ class Background(gfw.Sprite):
             self.dx += Background.KEY_MAP[pair]  # 키 입력에 따른 dx 값 조정
         elif pair in Background.SPEED_KEY_MAP and self.fuel>0:
             self.dspeed = Background.SPEED_KEY_MAP[pair]  # 키 입력에 따른 속도 변화 조정
+
+            # 엔진 소리 재생 및 정지
+            if e.type == SDL_KEYDOWN and e.key == SDLK_a:
+                self.engine.play()
 
         # 디버깅용
         if e.key == SDLK_9:
